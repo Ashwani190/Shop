@@ -1,0 +1,32 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">🛒 Your Cart</h1>
+{% if cart_items %}
+  <table class="w-full border">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="p-2 text-left">Product</th>
+        <th class="p-2 text-left">Quantity</th>
+        <th class="p-2 text-left">Subtotal</th>
+        <th class="p-2 text-left">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr class="border-t">
+        <td class="p-2">{{ item.product.name }}</td>
+        <td class="p-2">{{ item.quantity }}</td>
+        <td class="p-2">₹{{ item.subtotal }}</td>
+        <td class="p-2">
+          <a href="{% url 'remove_from_cart' item.product.pk %}" class="text-red-500 hover:underline">Remove</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-right mt-4 text-xl font-bold">Total: ₹{{ total }}</div>
+  <a href="#" class="inline-block mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Checkout</a>
+{% else %}
+  <p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}
